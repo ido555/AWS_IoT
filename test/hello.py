@@ -94,7 +94,7 @@ connect_future.result()
 print("Connected!")
 
 # Subscribe
-print(f"Subscribing to topic '{programTopic}'...")
+# print(f"Subscribing to topic '{programTopic}'...")
 subscribe_future, packet_id = mqtt_connection.subscribe(
     topic=programTopic,
     qos=mqtt.QoS.AT_LEAST_ONCE,
@@ -102,16 +102,16 @@ subscribe_future, packet_id = mqtt_connection.subscribe(
 
 subscribe_result = subscribe_future.result()
 print(f"Subscribed with {str(subscribe_result['qos'])}")
-# # Publish
-# mqtt_connection.publish(
-#     topic=programTopic,
-#     payload="""
-#             {
-#             "message": "test 123",
-#             "deviceInstruction": "save children"
-#             }
-#             """,
-#     qos=mqtt.QoS.AT_LEAST_ONCE)
+# Publish
+mqtt_connection.publish(
+    topic=programTopic,
+    payload="""
+            {
+            "message": "Power On attempt",
+            "deviceInstruction": "5057524f4e"
+            }
+            """,
+    qos=mqtt.QoS.AT_LEAST_ONCE)
 
 if not received_all_event.is_set():
     print("Waiting for all messages to be received...")
